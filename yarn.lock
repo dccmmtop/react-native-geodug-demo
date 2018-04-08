@@ -4264,6 +4264,10 @@ react-lifecycles-compat@^1.0.2:
   version "1.1.2"
   resolved "https://registry.npmjs.org/react-lifecycles-compat/-/react-lifecycles-compat-1.1.2.tgz#6b3a97bae12f421e57771d4715c7ebcd2833c07e"
 
+react-native-amap3d@^0.12.1:
+  version "0.12.1"
+  resolved "https://registry.npmjs.org/react-native-amap3d/-/react-native-amap3d-0.12.1.tgz#aaae28a6d7580fc4e3dfc69498a99ddd860b08c5"
+
 react-native-cli@^2.0.1:
   version "2.0.1"
   resolved "https://registry.npmjs.org/react-native-cli/-/react-native-cli-2.0.1.tgz#f2cd3c7aa1b83828cdfba630e2dfd817df766d54"

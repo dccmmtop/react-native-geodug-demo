@@ -21,7 +21,7 @@ export default class CustomButton extends Component {
     textStyle: {},
     disabled: false,
     text: '',
-    activeOpacity: 0.5,
+    activeOpacity: 0.9,
     type: 'default'
   }
 
@@ -34,16 +34,16 @@ export default class CustomButton extends Component {
       textStyle,
       type
     } = this.props;
-    const style = Object.assign(styles[type], btnStyle)
 
     return (
       <TouchableHighlight
         onPress={() => this._onPressButton()}
         activeOpacity={activeOpacity}
-        style={[styles.base, style]}
+        underlayColor='#FFCC66'
+        style={[btnStyles.base, btnStyles[type], btnStyle]}
         disabled={disabled}
       >
-        <Text style={Object.assign(styles.text, textStyle)}>{text}</Text>
+        <Text style={[btnStyles.text, textStyle]}>{text}</Text>
       </TouchableHighlight>
     )
   }
@@ -53,13 +53,16 @@ export default class CustomButton extends Component {
   }
 };
 
-const styles = StyleSheet.create({
+const btnStyles = StyleSheet.create({
   base: {
     padding: 20,
     borderRadius: 4,
     backgroundColor: '#FF9900',
-    border: none,
+    // 注意：无此样式属性
+    // border: none,
     height: 40,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   default: {},
   plain: {
@@ -69,7 +72,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff'
   },
   round: {
-    borderRadius: 40,
+    borderRadius: 40
   },
   text: {
     color: '#fff'

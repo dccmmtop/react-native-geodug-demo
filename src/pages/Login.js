@@ -35,6 +35,7 @@ export default class Login extends Component {
             type="default"
             disabled={this.state.canClick}
             onPress={() => this.handleLogin()}
+            btnStyle={{marginTop: 50, width: Dimensions.get('window').width - 80}}
           />
         </View>
       </View>
@@ -50,8 +51,9 @@ export default class Login extends Component {
       this.setState({
         canClick: false
       })
-    }, 500);
-    console.log('login');
+    }, 1500);
+    
+    this.props.navigation.navigate('Index');
   }
 }
 
@@ -80,7 +82,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 4,
     borderColor: '#ccc',
-    // width: Dimensions.get('window').width - 80,
+    width: Dimensions.get('window').width - 80,
     marginTop: 30,
   }
 })
