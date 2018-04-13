@@ -1,0 +1,63 @@
+{
+  "errno": "200",
+  "errtext": "success",
+  "data": [
+    {
+      "geo_num": "12346",
+      "parking_space_num": "10001",
+      "car_park_name": "测试停车场1",
+      "last_debug_time": "20180411121212",
+      "last_reset_time": "20180411121212",
+      "detect_state": "0",
+      "geo_state": "1",
+      "left_geo": {
+        "geo_num": "12346",
+        "parking_space_num": "10001",
+        "park_state": "0"
+      },
+      "right_geo": {
+        "geo_num": "12346",
+        "parking_space_num": "10001",
+        "park_state": "0"
+      }
+    },
+    {
+      "geo_num": "456789",
+      "parking_space_num": "10002",
+      "car_park_name": "测试停车场1",
+      "last_debug_time": "20180411121212",
+      "last_reset_time": "20180411121212",
+      "detect_state": "0",
+      "geo_state": "2",
+      "left_geo": {
+        "geo_num": "12346",
+        "parking_space_num": "10001",
+        "park_state": "0"
+      },
+      "right_geo": {
+        "geo_num": "12346",
+        "parking_space_num": "10001",
+        "park_state": "0"
+      }
+    },
+    {
+      "geo_num": "7894546",
+      "parking_space_num": "10003",
+      "car_park_name": "测试停车场1",
+      "last_debug_time": "20180411121212",
+      "last_reset_time": "20180411121212",
+      "detect_state": "0",
+      "geo_state": "3",
+      "left_geo": {
+        "geo_num": "12346",
+        "parking_space_num": "10001",
+        "park_state": "0"
+      },
+      "right_geo": {
+        "geo_num": "12346",
+        "parking_space_num": "10001",
+        "park_state": "0"
+      }
+    }
+  ]
+}

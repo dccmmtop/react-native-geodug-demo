@@ -96,6 +96,20 @@ def enableProguardInReleaseBuilds = false
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.1"
+    signingConfigs {
+        release {
+            keyAlias 'geom'
+            keyPassword 'lfreformer'
+            storeFile file('E:/GeomDebug/android/keystores/geom.keystore')
+            storePassword 'lfreformer'
+        }
+        debug {
+            keyAlias 'geom'
+            keyPassword 'lfreformer'
+            storeFile file('E:/GeomDebug/android/keystores/geom.keystore')
+            storePassword 'lfreformer'
+        }
+    }
 
     defaultConfig {
         applicationId "com.geomdebug"

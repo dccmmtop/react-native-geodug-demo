@@ -1,0 +1,33 @@
+{
+  "errno": "200",
+  "errtext": "success",
+  "data": [
+    {
+      "lng": 116.37296,
+      "lat": 39.91095,
+      "id": 1,
+      "car_park_name": "测试停车场1",
+      "parking_space_num": 20,
+      "geom_num": 20,
+      "address": "杭州市西湖区西溪银座"
+    },
+    {
+      "lng": 116.37296,
+      "lat": 39.81095,
+      "id": 2,
+      "car_park_name": "测试停车场2",
+      "parking_space_num": 20,
+      "geom_num": 20,
+      "address": "杭州市西湖区西溪银座"
+    },
+    {
+      "lng": 116.57296,
+      "lat": 39.81095,
+      "id": 3,
+      "car_park_name": "测试停车场3",
+      "parking_space_num": 20,
+      "geom_num": 20,
+      "address": "杭州市西湖区西溪银座"
+    }
+  ]
+}

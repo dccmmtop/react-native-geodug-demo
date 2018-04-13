@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Text, Image, View, StyleSheet, Dimensions, TextInput, Button } from "react-native";
+import { NavigationActions } from 'react-navigation';
 import CustomButton from '../components/CustomButton';
 
 export default class Login extends Component {
@@ -8,7 +9,7 @@ export default class Login extends Component {
     this.state = {
       login_name: '',
       password: '',
-      canClick: false
+      canClick: true
     }
   }
 
@@ -33,7 +34,7 @@ export default class Login extends Component {
           <CustomButton
             text="登录"
             type="default"
-            disabled={this.state.canClick}
+            disabled={!this.state.canClick}
             onPress={() => this.handleLogin()}
             btnStyle={{marginTop: 50, width: Dimensions.get('window').width - 80}}
           />
@@ -44,16 +45,22 @@ export default class Login extends Component {
 
   handleLogin() {
     this.setState({
-      canClick: true
+      canClick: false
+    });
+    
+    const resetAction = NavigationActions.reset({
+      index: 0,
+      actions: [NavigationActions.navigate({ routeName: 'Index' })],
     });
 
-    setTimeout(() => {
+    try {
+      this.props.navigation.dispatch(resetAction);
+    } catch (error) {
+      console.warn(error);
       this.setState({
-        canClick: false
+        canClick: true
       })
-    }, 1500);
-    
-    this.props.navigation.navigate('Index');
+    }
   }
 }
 
@@ -61,7 +68,8 @@ const styles = StyleSheet.create({
   layout: {
     alignItems: 'center',
     height: Dimensions.get('window').height,
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
+    paddingTop: 48,
   },
   title: {
     textAlign: 'center', 
