@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Dimensions, Image, TouchableOpacity } from 'react-native';
+import { getStateDesc } from '../utils/tools';
 
 export default class GeoListItem extends Component {
   render() {
@@ -13,7 +14,7 @@ export default class GeoListItem extends Component {
           <Text style={styles.text}>车位号：{data.parking_space_num}</Text>
         </View>
         <View style={styles.right}>
-          <Text style={{color: this.getStateColor(data.geo_state)}}>{this.getStateDesc(data.geo_state)}</Text>
+          <Text style={{color: this.getStateColor(data.geo_state)}}>{getStateDesc(data.geo_state)}</Text>
           <Image source={require('../assets/imgs/arrow.png')} style={styles.arrow} />
         </View>
       </TouchableOpacity>
@@ -42,34 +43,6 @@ export default class GeoListItem extends Component {
     }
 
     return color;
-  }
-
-  getStateDesc(state) {
-    let desc = '在线';
-
-    switch (parseInt(state)) {
-      case 1:
-        break;
-      case 2:
-        desc = '离线';
-        break;
-      case 3:
-        desc = '报错';
-        break;
-      case 4:
-        desc = 'X轴损坏';
-        break;
-      case 5:
-        desc = 'Y轴损坏';
-        break;
-      case 6:
-        desc = 'Z轴损坏';
-        break;
-      default:
-        break;
-    }
-
-    return desc;
   }
 }
 

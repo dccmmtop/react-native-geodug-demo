@@ -100,13 +100,13 @@ android {
         release {
             keyAlias 'geom'
             keyPassword 'lfreformer'
-            storeFile file('E:/GeomDebug/android/keystores/geom.keystore')
+            storeFile file('geom.keystore')
             storePassword 'lfreformer'
         }
         debug {
             keyAlias 'geom'
             keyPassword 'lfreformer'
-            storeFile file('E:/GeomDebug/android/keystores/geom.keystore')
+            storeFile file('geom.keystore')
             storePassword 'lfreformer'
         }
     }
@@ -133,6 +133,7 @@ android {
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            signingConfig signingConfigs.release
         }
     }
     // applicationVariants are e.g. debug, release

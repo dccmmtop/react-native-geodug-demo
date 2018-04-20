@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import {  View, Text, StyleSheet, Image, Button, Dimensions, TouchableOpacity, AsyncStorage } from 'react-native';
-import { DrawerNavigator, SafeAreaView } from 'react-navigation';
+import { View, Text, StyleSheet, Image, Dimensions, TouchableOpacity, AsyncStorage, BackHandler } from 'react-native';
+import { SafeAreaView } from 'react-navigation';
 import { MapView, Marker } from 'react-native-amap3d';
 import Header from '../components/Header';
-import PersonalSideNav from './PersonalSideNav';
 import http from '../utils/ajax';
 import MapInfoWindow from '../components/MapInfoWindow';
+import ESC from '../mixins/ESC';
 
 class ParkMap extends Component {
   state = {
@@ -17,6 +17,41 @@ class ParkMap extends Component {
     parkData: [],
     selectPark: {},
     canSearchClick: true
+  }
+
+  componentDidMount() {
+    this.getParkData();
+
+    this.didFocusSubscription = this.props.navigation.addListener(
+      'didFocus',
+      payload => {
+        BackHandler.addEventListener('hardwareBackPress', this.props.backHandler);
+        this.getStorage().then(data => {
+          if (data) {
+            data = JSON.parse(data);
+            AsyncStorage.removeItem('selectPark');
+            this.locate(data, this.showInfoWindow.bind(this, data));
+          }
+        })
+      }
+    );
+
+    this.willBlurSubscription = this.props.navigation.addListener(
+      'willBlur',
+      payload => {
+        BackHandler.removeEventListener('hardwareBackPress', this.props.backHandler);
+      }
+    );
+  }
+
+  componentWillUnmount() {
+    if (this.didFocusSubscription) {
+      this.didFocusSubscription.remove();
+    }
+
+    if (this.willBlurSubscription) {
+      this.willBlurSubscription.remove();
+    }
   }
 
   render() {
@@ -40,7 +75,7 @@ class ParkMap extends Component {
         <Header onLeft={() => this.showDrawer()} />
         <MapView
           ref={ref => this.mapView = ref}
-          // locationEnabled
+          locationEnabled
           showsZoomControls={false}
           coordinate={{
             latitude: 39.91095,
@@ -70,29 +105,6 @@ class ParkMap extends Component {
         />
       </View>
     )
-  }
-
-  componentDidMount() {
-    this.getParkData();
-
-    this.didFocusSubscription = this.props.navigation.addListener(
-      'didFocus',
-      payload => {
-        this.getStorage().then(data => {
-          if (data) {
-            data = JSON.parse(data);
-            AsyncStorage.removeItem('selectPark');
-            this.locate(data, this.showInfoWindow.bind(this, data));
-          }
-        })
-      }
-    );
-  }
-
-  componentWillUnmount() {
-    if (this.didFocusSubscription) {
-      this.didFocusSubscription.remove();
-    }
   }
 
   async getStorage() {
@@ -140,7 +152,7 @@ class ParkMap extends Component {
         tilt: 0,
         rotation: 0,
         zoomLevel: 12,
-        coordinate: this.state.first ? {
+        coordinate: this.state.first || isSearchLocate ? {
             latitude: event[isSearchLocate ? 'lat' : 'latitude'],
             longitude: event[isSearchLocate ? 'lng' : 'longitude']
           } : coordinate
@@ -190,16 +202,6 @@ class ParkMap extends Component {
   }
 }
 
-export default DrawerNavigator({
-  Home: {
-    screen: ParkMap
-  }
-}, {
-  drawerWidth: 200,
-  drawerBackgroundColor : '#FF9900',
-  contentComponent: PersonalSideNav
-})
-
 const styles = StyleSheet.create({
   marker: {
     width: 30, 
@@ -227,3 +229,5 @@ const styles = StyleSheet.create({
     fontSize: 14
   }
 })
+
+export default ESC(ParkMap, true);

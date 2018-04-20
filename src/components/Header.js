@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import {  View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 
+/**
+ * 停车场首页自定义顶部导航栏
+ */
 export default class Header extends Component {
   render() {
     return (

@@ -19,37 +19,32 @@ export default class CustomButton extends Component {
   static defaultProps = {
     btnStyle: {},
     textStyle: {},
-    disabled: false,
     text: '',
     activeOpacity: 0.9,
-    type: 'default'
+    type: 'default',
+    underlayColor: '#FFCC66'
   }
 
   render() {
     const {
       activeOpacity,
       text,
-      disabled,
       btnStyle,
       textStyle,
-      type
+      type,
+      underlayColor
     } = this.props;
 
     return (
       <TouchableHighlight
-        onPress={() => this._onPressButton()}
         activeOpacity={activeOpacity}
-        underlayColor='#FFCC66'
+        underlayColor={underlayColor}
         style={[btnStyles.base, btnStyles[type], btnStyle]}
-        disabled={disabled}
+        {...this.props}
       >
         <Text style={[btnStyles.text, textStyle]}>{text}</Text>
       </TouchableHighlight>
     )
-  }
-
-  _onPressButton() {
-    this.props.onPress();
   }
 };
 

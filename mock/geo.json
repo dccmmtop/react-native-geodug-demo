@@ -11,14 +11,14 @@
       "detect_state": "0",
       "geo_state": "1",
       "left_geo": {
-        "geo_num": "12346",
+        "geo_num": "12345",
         "parking_space_num": "10001",
         "park_state": "0"
       },
       "right_geo": {
-        "geo_num": "12346",
+        "geo_num": "12347",
         "parking_space_num": "10001",
-        "park_state": "0"
+        "park_state": "1"
       }
     },
     {

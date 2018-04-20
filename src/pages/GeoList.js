@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, Button, StyleSheet, TouchableOpacity, Image, Dimensions, FlatList } from 'react-native';
+import { View, Text, Button, StyleSheet, TouchableOpacity, Image, Dimensions, FlatList, AppRegistry } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import ActionSheet from 'react-native-actionsheet';
 import GeoListItem from '../components/GeoListItem';
+import Loading from '../components/Loading';
+import HeaderTitle from '../components/CommonHeaderTitle';
 import http from '../utils/ajax';
 
 // 地磁状态类别
@@ -41,15 +43,15 @@ export default class GeoList extends Component {
   static navigationOptions = ({ navigation, navigationOptions }) => {
     const parkData = navigation.state.params.park;
     return {
-      headerTitle: <Text style={styles.headerTitle}>{parkData.car_park_name}</Text>
+      headerTitle: <HeaderTitle text={parkData.car_park_name} />
     }
   }
 
   state = {
     type: geoTypes[0],
-    geoData: [
-
-    ]
+    originalGeoData: [],
+    geoData: [],
+    showLoading: true
   }
 
   componentDidMount() {
@@ -79,6 +81,9 @@ export default class GeoList extends Component {
           destructiveButtonIndex={3}
           onPress={(index) => this.onSelect(index)}
         />
+        {
+          this.state.showLoading ? <Loading /> : null
+        }
       </View>
     );
   }
@@ -88,13 +93,18 @@ export default class GeoList extends Component {
   getGeoData() {
     http.get('http://192.168.10.187:8081/mock/geo.json').then(res => {
       this.setState({
-        geoData: res
+        geoData: res,
+        originalGeoData: res
+      }, () => {
+        this.setState({
+          showLoading: false
+        })
       });
     });
   }
 
   gotoDebug(data) {
-    this.props.navigation.goBack(null);
+    this.props.navigation.navigate('Debug', {geoData: data});
   }
 
   selectType() {
@@ -107,18 +117,18 @@ export default class GeoList extends Component {
     this.setState({
       type: geoTypes[index]
     }, () => {
-      // 刷新地磁列表
+      let selects = index === 0 ? this.state.originalGeoData 
+        : this.state.originalGeoData.filter(item => {
+            return item.geo_state == index;
+          });
+      this.setState({
+        geoData: selects
+      })
     });
   }
 }
 
 const styles = StyleSheet.create({
-  headerTitle: {
-    flex: 1,
-    textAlign: 'center', 
-    marginRight: 55, 
-    color: '#000'
-  },
   select: {
     alignSelf: 'center',
     width: Dimensions.get('window').width - 60,

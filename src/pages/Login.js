@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Text, Image, View, StyleSheet, Dimensions, TextInput, Button } from "react-native";
+import { Text, Image, View, StyleSheet, Dimensions, TextInput } from "react-native";
 import { NavigationActions } from 'react-navigation';
 import CustomButton from '../components/CustomButton';
+import ESC from '../mixins/ESC';
 
-export default class Login extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -94,3 +95,5 @@ const styles = StyleSheet.create({
     marginTop: 30,
   }
 })
+
+export default ESC(Login);
